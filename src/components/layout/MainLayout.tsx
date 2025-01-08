@@ -1,49 +1,54 @@
-import React from "react";
-import { Layout, Menu, MenuProps } from "antd";
-import {
-  AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
-  TeamOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
+import { Layout, Menu, MenuProps, theme } from "antd";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const siderStyle: React.CSSProperties = {
-  overflow: "auto",
-  height: "100vh",
-  position: "fixed",
-  insetInlineStart: 0,
-  top: 0,
-  bottom: 0,
-  scrollbarWidth: "thin",
-  scrollbarGutter: "stable",
-};
-
 const items: MenuProps["items"] = [
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  AppstoreOutlined,
-  TeamOutlined,
-  ShopOutlined,
-].map((icon, index) => ({
-  key: String(index + 1),
-  icon: React.createElement(icon),
-  label: `nav ${index + 1}`,
-}));
+  {
+    key: "1",
+    label: "Dashboard",
+  },
+  {
+    key: "2",
+    label: "Profile",
+  },
+  {
+    key: "3",
+    label: "About",
+    children: [
+      {
+        key: "4",
+        label: "Create Admin",
+      },
+      {
+        key: "5",
+        label: "Create Student",
+      },
+    ],
+  },
+];
 
 const MainLayout = () => {
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
   return (
-    <Layout hasSider>
-      <Sider style={siderStyle}>
-        <div className="demo-logo-vertical" />
+    <Layout style={{ height: "100vh" }}>
+      <Sider
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
+      >
+        <div
+          className="demo-logo-vertical"
+          style={{ color: "white", textAlign: "center", paddingTop: "15px" }}
+        >
+          <h1>PH University</h1>
+        </div>
         <Menu
           theme="dark"
           mode="inline"
@@ -51,16 +56,18 @@ const MainLayout = () => {
           items={items}
         />
       </Sider>
-      <Layout style={{ marginInlineStart: 200 }}>
-        <Header style={{ padding: 0 }} />
-        <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+      <Layout>
+        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Content style={{ margin: "24px 16px 0" }}>
           <div
             style={{
               padding: 24,
-              textAlign: "center",
+              minHeight: 360,
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
             }}
           >
-            <h1>The Main COntent Heare</h1>
+            <h1>THis is Main layout</h1>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
