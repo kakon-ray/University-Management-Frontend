@@ -1,9 +1,10 @@
 import "./App.css";
+import MainLayout from "./components/layout/MainLayout";
 
 function App() {
   return (
     <>
-      <h1>Programming Hero University Management</h1>
+      <MainLayout />
     </>
   );
 }
