@@ -9,6 +9,7 @@ export const adminPaths = [
     path: "dashboard",
     element: <AdminDashboard />,
   },
+
   {
     name: "User Management",
     children: [
