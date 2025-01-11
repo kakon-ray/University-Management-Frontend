@@ -17,3 +17,8 @@ export type TRoute = {
   path: string;
   element: ReactNode;
 };
+
+export type TUserLogin = {
+  id: string;
+  password: string;
+};
