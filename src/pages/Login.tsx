@@ -3,24 +3,39 @@ import { useForm } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { TUserLogin } from "../types";
 import { useAppDispatch } from "../redux/hooks";
-import { setUser } from "../redux/features/auth/authSlice";
+import { setUser, TUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Login = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm({
     defaultValues: {
       id: "A-0001",
-      password: "adminSecurePass123",
+      password: "kakonray2000",
     },
   });
   const [login] = useLoginMutation();
   // const [login, { data, error }] = useLoginMutation();
 
   const onSubmit = async (userData: TUserLogin) => {
-    const res = await login(userData).unwrap();
-    const user = verifyToken(res?.data?.accessToken);
-    dispatch(setUser({ user: user, token: res.data.accessToken }));
+    const tostId = toast.loading("Logging in");
+    try {
+      const res = await login(userData).unwrap();
+      console.log(res);
+      const user = verifyToken(res?.data?.accessToken) as TUser;
+      dispatch(setUser({ user: user, token: res.data.accessToken }));
+      toast.success(res?.message, { id: tostId });
+      navigate(`/${user?.role}/dashboard`);
+    } catch (err) {
+      const errorMessage =
+        (err as { data?: { message?: string } })?.data?.message ||
+        "An unexpected error occurred";
+
+      toast.error(errorMessage, { id: tostId });
+    }
   };
 
   return (
