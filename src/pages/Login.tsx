@@ -1,5 +1,4 @@
 import { Button, Row } from "antd";
-import { useForm, useFormContext } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { TUserLogin } from "../types";
 import { useAppDispatch } from "../redux/hooks";
@@ -19,6 +18,11 @@ const Login = () => {
   //     password: "kakonray2000",
   //   },
   // });
+
+  const defaultValues = {
+    id: "A-0001",
+    password: "kakonray2000",
+  };
 
   const [login] = useLoginMutation();
   // const [login, { data, error }] = useLoginMutation();
@@ -42,7 +46,9 @@ const Login = () => {
 
   return (
     <Row justify="center" align="middle" style={{ height: "100vh" }}>
-      <PhForm onSubmit={onSubmit}>
+      {/* ekhane PhForm name ekta component banano hoice er sathe reat use form er connetion kora hocce */}
+      {/* react hook form er systeme kaj hocce ebong ant design theke only design neoya hocce */}
+      <PhForm onSubmit={onSubmit} defaultValues={defaultValues}>
         <PhInput type="text" name="id" label="ID: " />
 
         <PhInput type="text" name="password" label="Password: " />

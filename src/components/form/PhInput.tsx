@@ -1,7 +1,13 @@
 import { Input } from "antd";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
-const PhInput = ({ type, name, label }) => {
+type TInput = {
+  type: string;
+  name: string;
+  label?: string;
+};
+
+const PhInput = ({ type, name, label }: TInput) => {
   return (
     <div style={{ marginBottom: "20px" }}>
       {label ? label : ""}
